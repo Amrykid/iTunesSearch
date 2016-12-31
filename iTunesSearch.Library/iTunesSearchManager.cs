@@ -172,7 +172,7 @@ namespace iTunesSearch.Library
             //  Construct the url:
             string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
 
-            //  Get the list of episodes
+            //  Get the list of songs
             var result = await MakeAPICall<SongArtistResult>(apiUrl);
 
             return result;
@@ -212,7 +212,7 @@ namespace iTunesSearch.Library
             //  Construct the url:
             string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
 
-            //  Get the list of episodes
+            //  Get the list of albums
             var result = await MakeAPICall<AlbumResult>(apiUrl);
 
             return result;
@@ -231,7 +231,25 @@ namespace iTunesSearch.Library
             //  Construct the url:
             string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
 
-            //  Get the list of episodes
+            //  Get the list of albums
+            var result = await MakeAPICall<AlbumResult>(apiUrl);
+
+            return result;
+        }
+        public async Task<AlbumResult> SearchAlbumsAsync(string query, int resultLimit = 100, string countryCode = "us")
+        {
+            var nvc = HttpUtility.ParseQueryString(string.Empty);
+
+            nvc.Add("term", query);
+            nvc.Add("media", "music");
+            nvc.Add("entity", "album");
+            nvc.Add("limit", resultLimit.ToString());
+            nvc.Add("country", countryCode);
+
+            //  Construct the url:
+            string apiUrl = string.Format(_baseSearchUrl, nvc.ToString());
+
+            //  Get the list of albums
             var result = await MakeAPICall<AlbumResult>(apiUrl);
 
             return result;
